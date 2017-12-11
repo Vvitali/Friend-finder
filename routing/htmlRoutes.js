@@ -1,7 +1,6 @@
 module.exports = function(){
 	var fs = require("fs");
 	var apiRouter = new require("express").Router();
-	var bodyParser = require("body-parser");
 
 	apiRouter.get("/?(index.html)?", function(request, response){
 		fs.readFile("./public/home.html", "utf-8", function(error, result){

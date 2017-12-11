@@ -1,5 +1,4 @@
 var app  = new require("express")();
-var apiRouter = new require("express").Router();
 
 var apiRoutes = require("./routing/apiRoutes.js");
 var htmlRoutes = require("./routing/htmlRoutes.js");
