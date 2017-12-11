@@ -17,7 +17,7 @@ app.get("/survey(.html)?", function(request, response){
 });
 //apiRouter.js
 app.get("/api/friends", function(request, response){
-	var file = fs.readFile("./data/friends.js", "utf-8", function(error, result){
+	fs.readFile("./data/friends.js", "utf-8", function(error, result){
 		error && console.log(error);	
 		DEBUG && console.log(JSON.parse(result));
 		response.end(result);
@@ -29,6 +29,16 @@ app.post("/api/friends", urlencodedParser, function(request, response){
 	console.log("Name: "+request.body.name
 		+", : "+request.body.photo
 		+", : "+request.body.scores);
+	console.log(request.body);
+
+	fs.readFile("./data/friends.js", "utf-8", function(error, result){
+		error && console.log(error);	
+		var friendsList = JSON.parse(result);
+		friendsList.push(request.body);
+		fs.writeFile("./data/friends.js", JSON.stringify(friendsList), function(error){
+			error && console.log(error);
+		})
+	});
 	response.send("Got it!");
 	response.end("Done!");
 })
