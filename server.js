@@ -15,7 +15,7 @@ app.get("/?(index.html)?", function(request, response){
 app.get("/survey(.html)?", function(request, response){
 	response.send("<h2>"+"Survey page!"+"</h2>");
 });
-
+//apiRouter.js
 app.get("/api/friends", function(request, response){
 	var file = fs.readFile("./data/friends.js", "utf-8", function(error, result){
 		error && console.log(error);	
@@ -23,6 +23,18 @@ app.get("/api/friends", function(request, response){
 		response.end(result);
 	});
 });
+var urlencodedParser = bodyParser.urlencoded({extended: false});
+app.post("/api/friends", urlencodedParser, function(request, response){
+	if (!request.body) return response.sendStatus(400);
+	console.log("Name: "+request.body.name
+		+", : "+request.body.photo
+		+", : "+request.body.scores);
+	response.send("Got it!");
+	response.end("Done!");
+})
+//apirouter end
+
+
 
 apiRouter.route("/?(index.html)?").get(function(request, response){
 	response.send("<h2>"+"Welcome to Friends API"+"</h2>");
