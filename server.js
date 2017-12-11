@@ -9,4 +9,4 @@ var path = require("path");
 app.use("/api/friends", apiRoutes);
 app.use("/?", htmlRoutes);
 
-app.listen(process.env.PORT || 8080;);
+app.listen(process.env.PORT || 8080);
