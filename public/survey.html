@@ -3,8 +3,132 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Survey page</title>
+	<!-- Compiled and minified CSS -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-alpha.2/css/materialize.min.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 </head>
 <body>
-	<h2>Survey page</h2>
+	<div class="container">
+		<div class="row">
+			<div class="col s12">
+				<h1>Survey page</h1>
+				<div class="row">
+					<div class="input-field col s6">
+						<input id="first_name" type="text" class="validate">
+						<label for="first_name">First Name (Required)</label>
+					</div>
+					<div class="input-field col s6">
+						<input id="link_to_photo" type="text" class="validate">
+						<label for="link_to_photo">Link to Photo Image (Required)</label>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col s12 input-field ">
+						<select id="sel0">
+							<option value="" disabled selected>Choose your option</option>
+							<option value="1">1. Strongly disagry</option>
+							<option value="2">2.</option>
+							<option value="3">3. Strongly agree</option>
+						</select>
+						<label>#1 Your mind is always buzzing with unexplored ideas and plans.</label>
+					</div>
+					<div class="col s12 input-field ">
+						<select id="sel1">
+							<option value="" disabled selected>Choose your option</option>
+							<option value="1">1. Strongly disagry</option>
+							<option value="2">2.</option>
+							<option value="3">3. Strongly agree</option>
+						</select>
+						<label>#2 Generally speaking, you rely more on your experience than your imagination.</label>
+					</div>
+					<div class="col s12 input-field ">
+						<select id="sel2">
+							<option value="" disabled selected>Choose your option</option>
+							<option value="1">1. Strongly disagry</option>
+							<option value="2">2.</option>
+							<option value="3">3. Strongly agree</option>
+						</select>
+						<label>#3 You find it easy to stay relaxed and focused even when there is some pressure.</label>
+					</div>
+					<div class="col s12 input-field ">
+						<select id="sel3">
+							<option value="" disabled selected>Choose your option</option>
+							<option value="1">1. Strongly disagry</option>
+							<option value="2">2.</option>
+							<option value="3">3. Strongly agree</option>
+						</select>
+						<label>#4 People can rarely upset you.</label>
+					</div>
+					<div class="col s12 input-field ">
+						<select id="sel4">
+							<option value="" disabled selected>Choose your option</option>
+							<option value="1">1. Strongly disagry</option>
+							<option value="2">2.</option>
+							<option value="3">3. Strongly agree</option>
+						</select>
+						<label>#5</label>
+					</div>
+					<button id="send" class="btn">Send!</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Compiled and minified JavaScript -->
+	<script
+	src="https://code.jquery.com/jquery-3.2.1.min.js"
+	integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+	crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-alpha.2/js/materialize.min.js"></script>
+	<!-- Modal Structure -->
+	<div id="modal1" class="modal">
+		<div class="modal-content">
+			<h4>Not enough data!</h4>
+			<p>Please fill in all fields</p>
+		</div>
+		<div class="modal-footer">
+			<a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+		</div>
+	</div>
+	<div id="modal2" class="modal">
+		<div class="modal-content">
+			<h4>Your match!</h4>
+			<img src="" id="img_match" class="materialboxed" width="650">
+			<h5 id="name_match"></h5>
+		</div>
+		<div class="modal-footer">
+			<a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+		</div>
+	</div>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('select').select();
+			$('#modal1').modal();
+			$('#modal2').modal();
+			$("#send").click(function(event) {
+				if($("#sel0").val() && $("#sel1").val()  && $("#sel2").val()  && $("#sel3").val()  && $("#sel4").val() && $("#first_name").val() && $("#link_to_photo").val() ){
+					var data = {};
+					var instance0 = [];
+					instance0.push($("#sel0").val());
+					instance0.push($("#sel1").val());
+					instance0.push($("#sel2").val());
+					instance0.push($("#sel3").val());
+					instance0.push($("#sel4").val());
+
+					data["name"] = $("#first_name").val();
+					data["photo"] = $("#link_to_photo").val();
+					data["scores"] = instance0;
+					console.log(data);
+					$.post("/api/friends", data, function(event){
+						$("#img_match").attr('src', event.photo);
+						$("#name_match").text(event.name);
+						M.Modal.getInstance($("#modal2")).open();
+
+					});
+				}else{
+					M.Modal.getInstance($("#modal1")).open();
+				}
+			});
+		});
+	</script>
 </body>
 </html>
