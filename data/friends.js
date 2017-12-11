@@ -1,1 +1,1 @@
-[{"name":"Vasya","photo":"hahaha","scores[]":["1","2"]},{"name":"Vitaliy","photo":"azazaza","scores[]":["23","45"]}]
+[{"name":"Vasya","photo":"hahaha","scores[]":["1","2"]},{"name":"Vitaliy","photo":"azazaza","scores[]":["23","45"]},{"name":"Vitaliy","photo":"azazaza","scores[]":["23","45"]},{"name":"Vitaliy","photo":"azazaza","scores[]":["23","45"]}]
