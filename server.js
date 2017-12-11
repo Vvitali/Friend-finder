@@ -1,15 +1,12 @@
 var DEBUG = process.argv[2];
 var app  = new require("express")();
 var apiRouter = new require("express").Router();
-var body = require("body-parser");
 var path = require("path");
 var fs = require("fs");
 var bodyParser = require("body-parser");
 
-//var friendsListFile = require("./data/friends.js")
+
 DEBUG && console.log("Server file! DEBUG MODE ON");
-
-
 
 app.get("/?(index.html)?", function(request, response){
 	response.send("<h2>"+process.argv[2]+"</h2>");
@@ -20,13 +17,11 @@ app.get("/survey(.html)?", function(request, response){
 });
 
 app.get("/api/friends", function(request, response){
-	fs.readFile("./data/friends.js", "utf-8",function(error, result){
+	var file = fs.readFile("./data/friends.js", "utf-8", function(error, result){
 		error && console.log(error);	
 		DEBUG && console.log(JSON.parse(result));
-		response.end(JSON.parse(result));
+		response.end(result);
 	});
-
-
 });
 
 apiRouter.route("/?(index.html)?").get(function(request, response){
